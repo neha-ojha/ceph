@@ -571,8 +571,9 @@ void Replayer::set_sources(const ImageIds &image_ids)
     for (auto &image : m_init_images) {
       dout(20) << "scheduling the deletion of init image: "
                << image.name << dendl;
-      m_image_deleter->schedule_image_delete(m_local_pool_id, image.id,
-                                             image.name, image.global_id);
+      m_image_deleter->schedule_image_delete(m_local_rados, m_local_pool_id,
+                                             image.id, image.name,
+                                             image.global_id);
     }
     m_init_images.clear();
   }
@@ -735,6 +736,7 @@ bool Replayer::stop_image_replayer(unique_ptr<ImageReplayer<> > &image_replayer)
     if (!m_stopping.read()) {
       dout(20) << "scheduling delete" << dendl;
       m_image_deleter->schedule_image_delete(
+        m_local_rados,
         image_replayer->get_local_pool_id(),
         image_replayer->get_local_image_id(),
         image_replayer->get_local_image_name(),
@@ -749,6 +751,7 @@ bool Replayer::stop_image_replayer(unique_ptr<ImageReplayer<> > &image_replayer)
         [&image_replayer, this] (int r) {
           if (!m_stopping.read()) {
             m_image_deleter->schedule_image_delete(
+              m_local_rados,
               image_replayer->get_local_pool_id(),
               image_replayer->get_local_image_id(),
               image_replayer->get_local_image_name(),
