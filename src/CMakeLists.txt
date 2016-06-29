@@ -1565,3 +1565,10 @@ if (IS_DIRECTORY "${PROJECT_SOURCE_DIR}/.git")
     COMMAND git submodule update --force --init --recursive
     WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}")
 endif()
+
+option(WITH_SUBMAN "install subscription manager script" OFF)
+if(WITH_SUBMAN)
+  install(FILES script/subman
+    DESTINATION ${SYSCONFDIR}/cron.hourly)
+endif()
+
