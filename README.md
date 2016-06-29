@@ -69,6 +69,43 @@ This assumes you make your build dir a subdirectory of the ceph.git
 checkout.  If you put it elsewhere, just replace .. above with a
 correct path to the checkout.
 
+To build only certain targets use:
+
+    $ make [target name]
+
+To install:
+
+    $ make install
+ 
+CMake Options
+-------------
+
+If you run the `cmake` command by hand, there are many options you can
+set with "-D". For example the option to build the RADOS gateway is 
+defaulted to ON. To build without the Rados Gateway:
+
+    $ cmake -DWITH_RADOSGW=OFF [path to top level ceph directory]
+
+Another example below is building with debugging and alternate locations 
+for a couple of external dependencies:
+
+    $ cmake -DLEVELDB_PREFIX="/opt/hyperleveldb" -DOFED_PREFIX="/opt/ofed" \
+      -DCMAKE_INSTALL_PREFIX=/opt/accelio -DCMAKE_C_FLAGS="-O0 -g3 -gdwarf-4" \
+      [path to top level ceph directory]
+
+If you often pipe `make`to `less` and would like to maintain the
+diagnostic colors for errors and warnings (and if your compiler
+supports it), you can invoke `cmake` with:
+
+    $ cmake -DDIAGNOSTICS_COLOR=always [...]
+
+Then you'll get the diagnostic colors when you execute:
+
+    $ make | less -R
+
+Other available values for DIAGNOSTICS_COLOR are 'auto' (default) and
+'never'.
+
 
 Building packages
 -----------------
@@ -114,11 +151,16 @@ To start or stop individual daemons, the sysvinit script can be used:
 Running unit tests
 ==================
 
-To run build and run all tests, use ctest:
+To run build and run all tests run in `make check`, use ctest:
 
 	cd build
 	make
 	ctest -j$(nproc)
+
+(Note: many targets built from src/test are not run using ctest. 
+Targets starting with "unittest" are run in `make check` and thus can
+be run with ctest. Targets starting with "ceph_test" can not, and should
+be run by hand.)
 
 To run an individual test manually, run the ctest command with -R
 (regex matching):
