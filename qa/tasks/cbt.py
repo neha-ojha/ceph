@@ -46,6 +46,7 @@ class CBT(Task):
         return dict(
             cluster=cluster_config,
             benchmarks=benchmark_config,
+            baseline=self.config.get('baseline', {})
             )
 
     def install_dependencies(self):
@@ -116,6 +117,17 @@ class CBT(Task):
                 '{tdir}/cbt/cbt.py'.format(tdir=testdir),
                 '-a', self.cbt_dir,
                 '{cbtdir}/cbt_config.yaml'.format(cbtdir=self.cbt_dir),
+            ],
+        )
+        self.analyze_results()
+
+       def analyze_results(self):
+        testdir = misc.get_testdir(self.ctx)
+        self.first_mon.run(
+            args=[
+                '{tdir}/cbt/analysis-tool.py'.format(tdir=testdir),
+                '{cbtdir}/cbt_config.yaml'.format(cbtdir=self.cbt_dir),
+                '{cbtdir}'.format(cbtdir=self.cbt_dir),
             ],
         )
 
