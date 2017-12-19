@@ -965,12 +965,20 @@ Message * ReplicatedBackend::generate_subop(
     tid, at_version);
 
   // ship resulting transaction, log entries, and pg_stats
-  if (!parent->should_send_op(peer, soid)) {
-    dout(10) << "issue_repop shipping empty opt to osd." << peer
-	     <<", object " << soid
-	     << " beyond MAX(last_backfill_started "
-	     << ", pinfo.last_backfill "
-	     << pinfo.last_backfill << ")" << dendl;
+  bool async_recovery = false;
+  bool should_send = parent->should_send_op(peer, soid, async_recovery);
+  if (!should_send) {
+    if (async_recovery == false) {
+      dout(10) << "issue_repop shipping empty opt to osd." << peer
+	       <<", object " << soid
+	       << " beyond MAX(last_backfill_started "
+	       << ", pinfo.last_backfill "
+	       << pinfo.last_backfill << ")" << dendl;
+    } else {
+      dout(10) << "issue_repop shipping empty opt to osd." << peer
+               <<", object " << soid
+               << " which is pending recovery in async_recovery_targets" << dendl;
+    }
     ObjectStore::Transaction t;
     ::encode(t, wr->get_data());
   } else {

@@ -419,7 +419,8 @@ public:
 
   bool should_send_op(
     pg_shard_t peer,
-    const hobject_t &hoid) override {
+    const hobject_t &hoid,
+    bool &async_recovery) override {
     if (peer == get_primary())
       return true;
     assert(peer_info.count(peer));
@@ -427,8 +428,14 @@ public:
       hoid.pool != (int64_t)info.pgid.pool() ||
       hoid <= last_backfill_started ||
       hoid <= peer_info[peer].last_backfill;
-    if (!should_send)
+    if (!should_send) {
       assert(is_backfill_targets(peer));
+      return should_send;
+    }
+    if (async_recovery_targets.count(peer) && peer_missing[peer].is_missing(hoid)) {
+      async_recovery = true;
+      should_send = false;
+    }
     return should_send;
   }
 

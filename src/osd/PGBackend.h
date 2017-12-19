@@ -220,7 +220,7 @@ typedef ceph::shared_ptr<const OSDMap> OSDMapRef;
 
      virtual bool should_send_op(
        pg_shard_t peer,
-       const hobject_t &hoid) = 0;
+       const hobject_t &hoid, bool &async_recovery) = 0;
 
      virtual bool pg_is_undersized() const = 0;
 

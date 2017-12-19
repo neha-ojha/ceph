@@ -1982,7 +1982,8 @@ bool ECBackend::try_reads_to_commit()
     map<shard_id_t, ObjectStore::Transaction>::iterator iter =
       trans.find(i->shard);
     assert(iter != trans.end());
-    bool should_send = get_parent()->should_send_op(*i, op->hoid);
+    bool async_recovery = false;
+    bool should_send = get_parent()->should_send_op(*i, op->hoid, async_recovery);
     const pg_stat_t &stats =
       should_send ?
       get_info().stats :
