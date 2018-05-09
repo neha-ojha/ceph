@@ -5,6 +5,8 @@ meta:
 
 tasks:
 - cbt:
+    repo: https://github.com/neha-ojha/cbt.git
+    branch: wip-fix-cbt-task
     benchmarks:
       radosbench:
         concurrent_ops: 4
