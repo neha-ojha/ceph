@@ -10,7 +10,7 @@ overrides:
     - objects unfound and apparently lost
     - log bound mismatch
 tasks:
-- parallel:
+- sequential:
   - stress-tasks
 stress-tasks:
 - thrashosds:
