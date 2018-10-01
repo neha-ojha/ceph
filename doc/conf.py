@@ -41,12 +41,15 @@ html_sidebars = {
     '**': ['smarttoc.html', 'searchbox.html'],
     }
 
+sys.path.insert(0, os.path.abspath('_ext'))
+
 extensions = [
     'sphinx.ext.autodoc',
     'sphinx.ext.graphviz',
     'sphinx.ext.todo',
     'sphinxcontrib.ditaa',
     'breathe',
+    'edit_on_github',
     ]
 ditaa = 'ditaa'
 todo_include_todos = True
@@ -67,6 +70,9 @@ breathe_projects_source = {
              ["rados_types.h", "librados.h"])
 }
 breathe_domain_by_extension = {'py': 'py', 'c': 'c', 'h': 'c', 'cc': 'cxx', 'hpp': 'cxx'}
+
+edit_on_github_project = 'ceph/ceph'
+edit_on_github_branch = 'master'
 
 # mocking ceph_module offered by ceph-mgr. `ceph_module` is required by
 # mgr.mgr_module

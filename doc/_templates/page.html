@@ -1,0 +1,9 @@
+{% extends "!page.html" %}
+{% block body %}
+
+{%- if edit_on_github_url %}
+  <a href="{{ edit_on_github_url }}" rel="nofollow">{{ _('Edit on GitHub') }}</a>
+{%- endif %}
+
+  {{ super() }}
+{% endblock %}
