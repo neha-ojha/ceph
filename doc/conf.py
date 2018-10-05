@@ -37,6 +37,7 @@ html_title = "Ceph Documentation"
 html_logo = 'logo.png'
 html_favicon = 'favicon.ico'
 html_show_sphinx = False
+html_static_path = ["_static"]
 html_sidebars = {
     '**': ['smarttoc.html', 'searchbox.html'],
     }

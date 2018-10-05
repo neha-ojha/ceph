@@ -29,6 +29,7 @@ def html_page_context(app, pagename, templatename, context, doctree):
     context['edit_on_github_url'] = edit_url
 
 def setup(app):
+    app.add_javascript("js/edit_on_github.js")
     app.add_config_value('edit_on_github_project', '', True)
     app.add_config_value('edit_on_github_branch', 'master', True)
     app.connect('html-page-context', html_page_context)
