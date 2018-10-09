@@ -2,8 +2,15 @@
 Ceph Releases
 =============
 
+Current
+-------
+
 .. ceph_releases:: releases.yml
 
+Timeline
+--------
+
+.. ceph_timeline:: releases.yml
 
 Timeline
 --------
