@@ -1,0 +1,29 @@
+mimic:
+  released: 2018-06-01
+  releases:
+    - version: 13.2.1
+      released: 2018-07-01
+    - version: 13.2.0
+      released: 2018-06-01
+
+luminous:
+  released: 2017-08-01
+  releases:
+    - version: 12.2.8
+      released: 2018-09-01
+    - version: 12.2.7
+      released: 2018-07-01
+    - version: 12.2.6
+      released: 2018-07-01
+    - version: 12.2.5
+      released: 2018-04-01
+    - version: 12.2.4
+      released: 2018-02-01
+    - version: 12.2.3
+      released: 2018-02-01
+    - version: 12.2.2
+      released: 2017-12-01
+    - version: 12.2.1
+      released: 2017-09-01
+    - version: 12.2.0
+      released: 2017-08-01

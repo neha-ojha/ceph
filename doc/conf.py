@@ -51,6 +51,7 @@ extensions = [
     'sphinxcontrib.ditaa',
     'breathe',
     'edit_on_github',
+    'ceph_releases',
     ]
 ditaa = 'ditaa'
 todo_include_todos = True

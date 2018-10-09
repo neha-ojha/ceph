@@ -2,6 +2,9 @@
 Ceph Releases
 =============
 
+.. ceph_releases:: releases.yml
+
+
 Timeline
 --------
 
