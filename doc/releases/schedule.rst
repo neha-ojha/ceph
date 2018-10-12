@@ -10,7 +10,8 @@ Current
 Timeline
 --------
 
-.. ceph_timeline:: releases.yml
+.. ceph_timeline:: releases.yml development mimic luminous kraken
+
 
 Timeline
 --------

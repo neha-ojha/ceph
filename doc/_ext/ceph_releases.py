@@ -89,7 +89,7 @@ class CephReleases(Directive):
 
 class CephTimeline(Directive):
     has_content = False
-    required_arguments = 1
+    required_arguments = 5
     optional_arguments = 0
     option_spec = {}
 
@@ -107,39 +107,41 @@ class CephTimeline(Directive):
                 "Failed to open Ceph releases file {}: {}".format(filename, e),
                 line=self.lineno)]
 
+        display_releases = self.arguments[1:]
+
+        timeline = []
+        for code_name, info in six.iteritems(releases["releases"]):
+            if code_name in display_releases:
+                for release in info.get("releases", []):
+                    released = release["released"]
+                    timeline.append((released, code_name, release["version"]))
+
+        assert "development" not in releases["releases"]
+        if "development" in display_releases:
+            for release in releases["development"]["releases"]:
+                released = release["released"]
+                timeline.append((released, "development", release["version"]))
+
+        timeline = sorted(timeline, key=lambda t: t[0], reverse=True)
+
         table = nodes.table()
         tgroup = nodes.tgroup(cols=3)
         table += tgroup
 
+        columns = ["Date"] + display_releases
         tgroup.extend(
             nodes.colspec(colwidth=30, colname='c'+str(idx))
-            for idx, _ in enumerate(range(4)))
+            for idx, _ in enumerate(range(len(columns))))
 
         thead = nodes.thead()
         tgroup += thead
         row_node = nodes.row()
         thead += row_node
         row_node.extend(nodes.entry(h, nodes.paragraph(text=h))
-            for h in ["Version", "Code name", "Release date", "End of life"])
+            for h in columns)
 
         tbody = nodes.tbody()
         tgroup += tbody
-
-        timeline = []
-        for code_name, info in six.iteritems(releases["releases"]):
-            for release in info.get("releases", []):
-                version = "Ceph {}".format(release["version"])
-                released = release["released"]
-                row_info = (version, code_name, released, "--")
-                timeline.append(row_info)
-
-        for release in releases["development"]["releases"]:
-            version = "Ceph {}".format(release["version"])
-            released = release["released"]
-            row_info = (version, "--", released, "--")
-            timeline.append(row_info)
-
-        timeline = sorted(timeline, key=lambda t: t[2], reverse=True)
 
         rows = []
         for row_info in timeline:
@@ -150,21 +152,14 @@ class CephTimeline(Directive):
             entry += para
             trow += entry
 
-            entry = nodes.entry()
-            para = nodes.paragraph(text=row_info[1])
-            entry += para
-            trow += entry
-
-            entry = nodes.entry()
-            para = nodes.paragraph(text=row_info[2])
-            entry += para
-            trow += entry
-
-            entry = nodes.entry()
-            para = nodes.paragraph(text=row_info[3])
-            entry += para
-            trow += entry
-
+            for release in display_releases:
+                entry = nodes.entry()
+                if row_info[1] == release:
+                    para = nodes.paragraph(text=row_info[2])
+                else:
+                    para = nodes.paragraph(text="--")
+                entry += para
+                trow += entry
             rows.append(trow)
 
         tbody.extend(rows)
