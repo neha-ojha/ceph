@@ -38,20 +38,26 @@ class CephReleases(Directive):
 
         tgroup.extend(
             nodes.colspec(colwidth=30, colname='c'+str(idx))
-            for idx, _ in enumerate(range(3)))
+            for idx, _ in enumerate(range(4)))
 
         thead = nodes.thead()
         tgroup += thead
         row_node = nodes.row()
         thead += row_node
         row_node.extend(nodes.entry(h, nodes.paragraph(text=h))
-            for h in ["Version", "Release date", "End of life"])
+            for h in ["Version", "Initial release", "Latest", "End of life (estimated)"])
+
+        releases = six.iteritems(releases)
+        releases = sorted(releases, key=lambda t: t[0], reverse=True)
 
         tbody = nodes.tbody()
         tgroup += tbody
 
         rows = []
-        for code_name, info in six.iteritems(releases):
+        for code_name, info in releases:
+            actual_eol = info.get("actual_eol", None)
+            if actual_eol and actual_eol <= datetime.datetime.now().date():
+                continue
             trow = nodes.row()
 
             entry = nodes.entry()
@@ -59,9 +65,20 @@ class CephReleases(Directive):
             entry += para
             trow += entry
 
+            sorted_releases = sorted(info["releases"],
+                    key=lambda t: t["released"])
+            oldest_release = sorted_releases[0]
+            newest_release = sorted_releases[-1]
+
             entry = nodes.entry()
             para = nodes.paragraph(text="{}".format(
-                info.get("released", "--")))
+                oldest_release["released"]))
+            entry += para
+            trow += entry
+
+            entry = nodes.entry()
+            para = nodes.paragraph(text="v{}".format(
+                newest_release["version"]))
             entry += para
             trow += entry
 
@@ -89,7 +106,7 @@ class CephReleases(Directive):
 
 class CephTimeline(Directive):
     has_content = False
-    required_arguments = 5
+    required_arguments = 12
     optional_arguments = 0
     option_spec = {}
 

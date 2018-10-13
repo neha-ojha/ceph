@@ -10,7 +10,7 @@ Current
 Timeline
 --------
 
-.. ceph_timeline:: releases.yml development mimic luminous kraken
+.. ceph_timeline:: releases.yml development mimic luminous kraken jewel infernalis hammer giant firefly emperor dumpling
 
 
 Timeline

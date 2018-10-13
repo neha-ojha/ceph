@@ -39,6 +39,59 @@ releases:
       - version: 11.2.0
         released: 2017-01-01
 
+  jewel:
+    released: 2016-04-01
+    target_eol: 2018-06-01
+    actual_eol: 2018-07-01
+    releases:
+      - version: 10.2.11
+        released: 2018-07-11
+
+  infernalis:
+    released: 2015-11-01
+    actual_eol: 2016-04-01
+    releases:
+      - version: 9.2.1
+        released: 2016-02-01
+
+  hammer:
+    released: 2015-04-01
+    target_eol: 2017-05-01
+    actual_eol: 2017-08-01
+    releases:
+      - version: 0.94.10
+        released: 2017-02-01
+
+  giant:
+    released: 2014-10-01
+    actual_eol: 2015-04-01
+    releases:
+      - version: 0.87.2
+        released: 2015-04-01
+
+  firefly:
+    released: 2014-05-01
+    target_eol: 2016-01-01
+    actual_eol: 2016-04-01
+    releases:
+      - version: 0.80.11
+        released: 2015-11-01
+
+  emperor:
+    released: 2013-11-01
+    actual_eol: 2014-05-01
+    releases:
+      - version: 0.72.2
+        released: 2013-12-01
+
+  dumpling:
+    released: 2013-08-01
+    target_eol: 2015-03-01
+    actual_eol: 2015-05-01
+    releases:
+      - version: 0.67.11
+        released: 2014-09-01
+
 development:
   releases:
     - version: 13.1.0
@@ -67,3 +120,87 @@ development:
       released: 2017-03-01
     - version: 12.0.0
       released: 2017-02-01
+    - version: 11.1.1
+      released: 2017-01-01
+    - version: 11.1.0
+      released: 2016-12-01
+    - version: 11.0.2
+      released: 2016-10-01
+    - version: 11.0.1
+      released: 2016-10-01
+    - version: 11.0.0
+      released: 2016-06-01
+    - version: 10.1.2
+      released: 2016-04-01
+    - version: 10.1.1
+      released: 2016-04-01
+    - version: 10.1.0
+      released: 2016-03-01
+    - version: 10.0.5
+      released: 2016-03-01
+    - version: 10.0.4
+      released: 2016-03-01
+    - version: 10.0.3
+      released: 2016-02-01
+    - version: 10.0.2
+      released: 2016-01-01
+    - version: 10.0.1
+      released: 2015-12-01
+    - version: 10.0.0
+      released: 2015-11-01
+    - version: 9.1.0
+      released: 2015-10-01
+    - version: 9.0.3
+      released: 2015-08-01
+    - version: 9.0.2
+      released: 2015-07-01
+    - version: 9.0.1
+      released: 2015-06-01
+    - version: 9.0.0
+      released: 2015-05-01
+    - version: 0.93
+      released: 2015-02-01
+    - version: 0.92
+      released: 2015-02-01
+    - version: 0.91
+      released: 2015-01-01
+    - version: 0.90
+      released: 2014-12-01
+    - version: 0.89
+      released: 2014-12-01
+    - version: 0.88
+      released: 2014-11-01
+    - version: 0.86
+      released: 2014-10-01
+    - version: 0.85
+      released: 2014-09-01
+    - version: 0.84
+      released: 2014-08-01
+    - version: 0.83
+      released: 2014-07-01
+    - version: 0.82
+      released: 2014-06-01
+    - version: 0.81
+      released: 2014-06-01
+    - version: 0.79
+      released: 2014-04-01
+    - version: 0.78
+      released: 2014-03-01
+    - version: 0.77
+      released: 2014-02-01
+    - version: 0.76
+      released: 2014-01-01
+    - version: 0.75
+      released: 2014-01-01
+    - version: 0.74
+      released: 2013-12-01
+    - version: 0.73
+      released: 2013-12-01
+    - version: 0.71
+      released: 2013-10-01
+    - version: 0.70
+      released: 2013-10-01
+    - version: 0.69
+      released: 2013-09-01
+    - version: 0.68
+      released: 2013-09-01
