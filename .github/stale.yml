@@ -28,8 +28,8 @@ staleLabel: stale
 # Comment to post when marking as stale. Set to `false` to disable
 markComment: >
   This pull request has been automatically marked as stale because it
-  has not had recent activity. It will be closed if no further
-  activity occurs.
+  has not had activity since "{{ daysUntilStale }}" days. It will be closed
+  if no further activity occurs.
 
   If you are a maintainer or core committer, please follow-up on this
   issue to identify what steps should be taken by the author to move this
