@@ -2,7 +2,9 @@
 {% block body %}
 
 {%- if edit_on_github_url %}
-  <a href="{{ edit_on_github_url }}" rel="nofollow">{{ _('Edit on GitHub') }}</a>
+  <div align="right">          
+    <a href="https://github.com/ceph/ceph/edit/master/doc/index.rst" rel="nofollow">Edit on GitHub</a> | <a href="https://github.com/ceph/ceph/projects/4">Report a Documentation Bug</a>
+  </div>
 {%- endif %}
 
   {{ super() }}
