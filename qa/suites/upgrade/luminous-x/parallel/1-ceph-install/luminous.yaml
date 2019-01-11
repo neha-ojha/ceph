@@ -5,7 +5,8 @@ meta:
    upgrade the client node
 tasks:
 - install:
-    branch: luminous
+    branch: wip-36686-luminous
+    #branch: luminous
     exclude_packages: ['librados3']
     extra_packages: ['librados2']
 - print: "**** done installing luminous"

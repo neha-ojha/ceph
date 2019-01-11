@@ -4,7 +4,8 @@ meta:
 workload:
   full_sequential:
     - workunit:
-        branch: luminous
+        branch: wip-36686-luminous
+        #branch: luminous
         clients:
           client.0:
             - cls
