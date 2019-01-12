@@ -2,7 +2,8 @@ meta:
 - desc: install ceph/luminous latest
 tasks:
 - install:
-    branch: luminous
+    branch: wip-36686-luminous-2019-01-10
+    #branch: luminous
     exclude_packages: ['librados3']
     extra_packages: ['librados2']
 - print: "**** done install luminous"

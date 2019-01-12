@@ -3,7 +3,8 @@ meta:
    librbd python api tests
 tasks:
 - workunit:
-    branch: luminous
+    branch: wip-36686-luminous-2019-01-10
+    #branch: luminous
     clients:
       client.0:
         - rbd/test_librbd_python.sh
