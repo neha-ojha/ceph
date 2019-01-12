@@ -13,6 +13,11 @@ tasks:
       - ceph osd require-osd-release luminous
       - ceph osd set-require-min-compat-client luminous
 - print: "**** done ceph"
+- exec:
+    osd.0:
+      - ceph osd set pglog_hardlimit
+      - ceph osd dump --format=json-pretty | grep "flags"
+- print: "**** try to set pglog_hardlimit, should succeed"
 overrides:
   ceph:
     conf:
