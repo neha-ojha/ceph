@@ -12,6 +12,6 @@ tasks:
 - print: "**** done ceph.restart 1st half"
 - exec:
     osd.0:
-      - ceph osd set pglog_hardlimit && exit 1 || true
+      - ceph osd set pglog_hardlimit
       - ceph osd dump --format=json-pretty | grep "flags"
-- print: "**** try to set pglog_hardlimit, should not succeed"
+- print: "**** try to set pglog_hardlimit, should succeed"
