@@ -2,7 +2,8 @@ meta:
 - desc: install ceph/mimic latest
 tasks:
 - install:
-    branch: mimic
+    #branch: mimic
+    branch: wip-37902-mimic-2019-01-29
     exclude_packages: ['librados3']
     extra_packages: ['librados2']
 - print: "**** done install mimic"
