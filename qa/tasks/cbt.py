@@ -173,9 +173,9 @@ class CBT(Task):
 
     def checkout_cbt(self):
         testdir = misc.get_testdir(self.ctx)
-        repo = self.config.get('repo', 'https://github.com/neha-ojha/cbt.git')
+        repo = self.config.get('repo', 'https://github.com/ceph/cbt.git')
         #repo = self.config.get('repo', 'https://github.com/ceph/cbt.git')
-        branch = self.config.get('branch', 'wip-40120')
+        branch = self.config.get('branch', 'wip-client_endpoints_fix')
         #branch = self.config.get('branch', 'master')
         branch = self.config.get('force-branch', branch)
         sha1 = self.config.get('sha1')
