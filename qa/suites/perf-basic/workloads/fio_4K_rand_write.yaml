@@ -6,14 +6,13 @@ meta:
 tasks:
 - cbt:
     benchmarks:
-      librbdfio:
+      fio:
+        client_endpoints: 'fiotest'
         op_size: [4096]
         time: 300
         mode: ['randwrite']
         norandommap: True
-        vol_size: 4096
-        procs_per_volume: [1]
-        volumes_per_client: [2]
+        size: 4096
         iodepth: [32]
         osd_ra: [4096]
         pool_profile: 'rbd'
@@ -27,3 +26,7 @@ tasks:
           pg_size: 256
           pgp_size: 256
           replication: 3
+
+    client_endpoints:
+      fiotest:
+        driver: 'librbd'
