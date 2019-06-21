@@ -1737,8 +1737,8 @@ int OSDMap::apply_incremental(const Incremental &inc)
   new_blacklist_entries = false;
   if (inc.epoch == 1)
     fsid = inc.fsid;
-  else if (inc.fsid != fsid)
-    return -EINVAL;
+  //else if (inc.fsid != fsid)
+  //  return -EINVAL;
   
   assert(inc.epoch == epoch+1);
 
