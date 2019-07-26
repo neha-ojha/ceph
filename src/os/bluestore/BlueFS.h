@@ -460,6 +460,7 @@ public:
   int mkdir(const string& dirname);
   int rmdir(const string& dirname);
   bool wal_is_rotational();
+  uint64_t get_bluefs_alloc_size();
 
   bool dir_exists(const string& dirname);
   int stat(const string& dirname, const string& filename,

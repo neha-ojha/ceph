@@ -257,7 +257,8 @@ int BlueFS::reclaim_blocks(unsigned id, uint64_t want,
   ceph_assert(id < alloc.size());
   ceph_assert(alloc[id]);
 
-  int64_t got = alloc[id]->allocate(want, cct->_conf->bluefs_alloc_size, 0,
+  uint64_t bluefs_alloc_size = get_bluefs_alloc_size();
+  int64_t got = alloc[id]->allocate(want, bluefs_alloc_size, 0,
 				    extents);
   ceph_assert(got != 0);
   if (got < 0) {
@@ -441,9 +442,10 @@ void BlueFS::_init_alloc()
       continue;
     }
     ceph_assert(bdev[id]->get_size());
+    uint64_t bluefs_alloc_size = get_bluefs_alloc_size();
     alloc[id] = Allocator::create(cct, cct->_conf->bluefs_allocator,
 				  bdev[id]->get_size(),
-				  cct->_conf->bluefs_alloc_size);
+				  bluefs_alloc_size);
     interval_set<uint64_t>& p = block_all[id];
     for (interval_set<uint64_t>::iterator q = p.begin(); q != p.end(); ++q) {
       alloc[id]->init_add_free(q.get_start(), q.get_len());
@@ -1843,9 +1845,10 @@ void BlueFS::_compact_log_async(std::unique_lock<ceph::mutex>& l)
   log_t.clear();
   _compact_log_dump_metadata(&t, 0);
 
+  uint64_t bluefs_alloc_size = get_bluefs_alloc_size();
   // conservative estimate for final encoded size
   new_log_jump_to = round_up_to(t.op_bl.length() + super.block_size * 2,
-                                cct->_conf->bluefs_alloc_size);
+                                bluefs_alloc_size);
   t.op_jump(log_seq, new_log_jump_to);
 
   // allocate
@@ -2470,7 +2473,8 @@ int BlueFS::_expand_slow_device(uint64_t need, PExtentVector& extents)
 {
   int r = -ENOSPC;
   if (slow_dev_expander) {
-    auto min_alloc_size = cct->_conf->bluefs_alloc_size;
+    uint64_t bluefs_alloc_size = get_bluefs_alloc_size();
+    auto min_alloc_size = bluefs_alloc_size;
     int id = _get_slow_device_id();
     ceph_assert(id <= (int)alloc.size() && alloc[id]);
     auto min_need = round_up_to(need, min_alloc_size);
@@ -2493,7 +2497,8 @@ int BlueFS::_allocate_without_fallback(uint8_t id, uint64_t len,
   dout(10) << __func__ << " len 0x" << std::hex << len << std::dec
            << " from " << (int)id << dendl;
   assert(id < alloc.size());
-  uint64_t min_alloc_size = cct->_conf->bluefs_alloc_size;
+  uint64_t bluefs_alloc_size = get_bluefs_alloc_size();
+  uint64_t min_alloc_size = bluefs_alloc_size;
 
   uint64_t left = round_up_to(len, min_alloc_size);
 
@@ -2527,7 +2532,8 @@ int BlueFS::_allocate(uint8_t id, uint64_t len,
   dout(10) << __func__ << " len 0x" << std::hex << len << std::dec
            << " from " << (int)id << dendl;
   ceph_assert(id < alloc.size());
-  uint64_t min_alloc_size = cct->_conf->bluefs_alloc_size;
+  uint64_t bluefs_alloc_size = get_bluefs_alloc_size();
+  uint64_t min_alloc_size = bluefs_alloc_size;
 
   uint64_t left = round_up_to(len, min_alloc_size);
   int64_t alloc_len = 0;
@@ -3026,4 +3032,18 @@ bool BlueFS::wal_is_rotational()
     return bdev[BDEV_DB]->is_rotational();
   }
   return bdev[BDEV_SLOW]->is_rotational();
+}
+
+uint64_t BlueFS::get_bluefs_alloc_size()
+{
+  // choose bluefs_alloc_size
+  if (cct->_conf->bluefs_alloc_size) {
+    return cct->_conf->bluefs_alloc_size;
+  } else {
+    if (bdev[BDEV_SLOW]->is_rotational()) {
+      return cct->_conf->bluestore_min_alloc_size_hdd;
+    } else {
+      return cct->_conf->bluestore_min_alloc_size_ssd;
+    }
+  }
 }
