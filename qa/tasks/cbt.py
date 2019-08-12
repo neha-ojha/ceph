@@ -175,8 +175,8 @@ class CBT(Task):
 
     def checkout_cbt(self):
         testdir = misc.get_testdir(self.ctx)
-        repo = self.config.get('repo', 'https://github.com/ceph/cbt.git')
-        branch = self.config.get('branch', 'wip-file-checking')
+        repo = self.config.get('repo', 'https://github.com/neha-ojha/cbt.git')
+        branch = self.config.get('branch', 'wip-test-184-186')
         branch = self.config.get('force-branch', branch)
         sha1 = self.config.get('sha1')
         self.first_mon.run(
