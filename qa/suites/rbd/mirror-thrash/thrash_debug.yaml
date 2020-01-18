@@ -1,0 +1,11 @@
+overrides:
+  ceph:
+    conf:
+      osd:
+        debug ms: 20
+        debug objecter: 20
+      client:
+        debug ms: 20
+        debug objecter: 20
+        debug rados: 20
+
