@@ -2,8 +2,9 @@ overrides:
   ceph:
     conf:
       osd:
-        debug ms: 20
+        debug ms: 1
         debug mgrc: 20
+        debug osd: 20
         debug bluestore: 0
         debug bluefs: 0
       mgr:
