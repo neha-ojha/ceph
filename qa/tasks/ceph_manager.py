@@ -2586,6 +2586,7 @@ class CephManager:
         self.log("waiting for recovery to complete")
         start = time.time()
         num_active_recovered = self.get_num_active_recovered()
+        timeout = 1
         while not self.is_recovered():
             now = time.time()
             if timeout is not None:
