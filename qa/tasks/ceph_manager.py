@@ -2504,6 +2504,7 @@ class CephManager:
         self.log("waiting for clean")
         start = time.time()
         num_active_clean = self.get_num_active_clean()
+        timeout = 1
         while not self.is_clean():
             if timeout is not None:
                 if self.get_is_making_recovery_progress():
