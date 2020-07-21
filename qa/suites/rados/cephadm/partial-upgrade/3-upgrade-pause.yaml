@@ -3,12 +3,9 @@ tasks:
     env: [sha1]
     mon.a:
       - ceph orch upgrade status
-      - sleep 30
       - ceph orch ps
       - ceph orch upgrade status | jq '.in_progress' | grep true
+      - while ! ceph versions | jq -e '.overall | length == 2' ; do ceph versions ; sleep 30 ; done
       - ceph orch upgrade pause
       - ceph orch upgrade status
       - ceph orch ps
-      - ceph versions
-      - ceph versions | jq -e '.overall | length == 2'
-      - sleep 60
