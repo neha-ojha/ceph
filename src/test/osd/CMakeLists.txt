@@ -35,6 +35,7 @@ install(TARGETS
 
 # scripts
 add_ceph_test(safe-to-destroy.sh ${CMAKE_CURRENT_SOURCE_DIR}/safe-to-destroy.sh)
+add_ceph_test(bad-inc-map.sh ${CMAKE_CURRENT_SOURCE_DIR}/bad-inc-map.sh)
 
 # unittest_osdmap
 add_executable(unittest_osdmap
