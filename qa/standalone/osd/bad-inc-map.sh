@@ -27,7 +27,32 @@ function TEST_bad_inc_map() {
 
     run_mon $dir a
     run_mgr $dir x
-    TIMEOUT=60 run_osd $dir 0 --osd-inject-bad-map-crc-probability 1 || return 1
+    run_osd $dir 0
+    run_osd $dir 1
+    run_osd $dir 2
+
+    ceph config set osd.2 osd_inject_bad_map_crc_probability 1
+
+    # osd map churn
+    create_pool foo 8
+    ceph osd pool set foo min_size 1
+    ceph osd pool set foo min_size 2
+
+    sleep 5
+
+    # make sure all the OSDs are still up
+    TIMEOUT=10 wait_for_osd up 0
+    TIMEOUT=10 wait_for_osd up 1
+    TIMEOUT=10 wait_for_osd up 2
+
+    # check for the signature in the log
+    grep "injecting map crc failure" $dir/osd.2.log || return 1
+    grep "bailing because last" $dir/osd.2.log || return 1
+
+    echo success
+
+    delete_pool foo
+    kill_daemons $dir || return 1
 }
 
 main bad-inc-map "$@"
