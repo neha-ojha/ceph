@@ -31,3 +31,7 @@ function TEST_bad_inc_map() {
 }
 
 main bad-inc-map "$@"
+
+# Local Variables:
+# compile-command: "make -j4 && ../qa/run-standalone.sh bad-inc-map.sh"
+# End:
