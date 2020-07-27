@@ -7952,6 +7952,7 @@ void OSD::handle_osd_map(MOSDMap *m)
 
 	// don't continue committing if we failed to enc the first inc map
 	if (last < start) {
+	  dout(10) << __func__ << " bailing because last < start (" << last << "<" << start << ")" << dendl;
 	  m->put();
 	  return;
 	}
