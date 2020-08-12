@@ -2,10 +2,6 @@ tasks:
 - cephadm.shell:
     env: [sha1]
     mon.a:
-      - ceph orch upgrade status
-      - ceph orch ps
-      - ceph orch upgrade status | jq '.in_progress' | grep true
-      - while ! ceph versions | jq -e '.overall | length == 2' ; do ceph versions ; sleep 30 ; done
-      - ceph orch upgrade pause
+      - sleep 300
       - ceph orch upgrade status
       - ceph orch ps
