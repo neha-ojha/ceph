@@ -1,4 +1,4 @@
 tasks:
 - cephadm:
-    image: docker.io/ceph/ceph:v15.2.0
-    cephadm_branch: v15.2.0
+    image: quay.ceph.io/ceph-ci/ceph:6fcc9ae18070f4d54a41e2d908d7a08d392e5194
+    cephadm_branch: octopus
