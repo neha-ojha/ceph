@@ -298,12 +298,7 @@ class TestProgress(MgrTestCase):
         # Check that no event is created
         time.sleep(self.EVENT_CREATION_PERIOD)
 
-<<<<<<< HEAD
         self.assertEqual(len(self._all_events()), osd_count - pool_size)
-=======
-        self.assertEqual(
-            self._osd_in_out_completed_events_count('out'),
-            osd_count - pool_size)
 
     def test_turn_off_module(self):
         """
@@ -351,4 +346,3 @@ class TestProgress(MgrTestCase):
         self.wait_until_true(lambda: self._is_complete(ev1['id']),
                              timeout=self.RECOVERY_PERIOD)
         self.assertTrue(self._is_quiet())
->>>>>>> 993bb02b30... mgr/progress: introduce turn off/on feature
