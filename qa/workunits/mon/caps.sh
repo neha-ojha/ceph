@@ -50,7 +50,7 @@ expect "ceph -k $tmp.foo.keyring --user foo osd dump" 13
 # we need to set a timeout for testing this scenario.
 #
 # leave plenty of time here because the mons might be thrashing.
-export CEPH_ARGS='--rados-mon-op-timeout=300'
+export CEPH_ARGS='--rados-mon-op-timeout=5m'
 expect "ceph -k $tmp.foo.keyring --user foo pg dump" $ETIMEDOUT
 export CEPH_ARGS=''
 
@@ -66,7 +66,7 @@ expect "ceph -k $tmp.bar.keyring --user bar auth del client.foo" 13
 expect "ceph -k $tmp.bar.keyring --user bar osd dump" 13
 
 # again, we'll need to timeout.
-export CEPH_ARGS='--rados-mon-op-timeout=300'
+export CEPH_ARGS='--rados-mon-op-timeout=5m'
 expect "ceph -k $tmp.bar.keyring --user bar pg dump" $ETIMEDOUT
 export CEPH_ARGS=''
 
