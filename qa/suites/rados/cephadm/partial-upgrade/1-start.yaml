@@ -1,4 +1,4 @@
 tasks:
 - cephadm:
-    image: quay.ceph.io/ceph-ci/ceph:6fcc9ae18070f4d54a41e2d908d7a08d392e5194
+    image: quay.ceph.io/ceph-ci/ceph:d0234e1ede269851a029cd700e16721cae756cc6
     cephadm_branch: octopus
