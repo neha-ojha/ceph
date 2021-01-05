@@ -1026,7 +1026,7 @@ def create_rbd_pool(ctx, config):
     teuthology.wait_until_osds_up(
         ctx,
         cluster=ctx.cluster,
-        remote=mon_remote,
+        remote=ctx.ceph[cluster_name].bootstrap_remote,
         ceph_cluster=cluster_name,
     )
     if config.get('create_rbd_pool', True):
