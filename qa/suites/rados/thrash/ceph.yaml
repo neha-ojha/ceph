@@ -1,5 +1,7 @@
 tasks:
 - install:
+    exclude_packages:
+      - ceph-mgr-rook
 - ceph:
     conf:
       osd:
