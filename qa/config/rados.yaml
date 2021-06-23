@@ -2,6 +2,7 @@ overrides:
   ceph:
     conf:
       osd:
+        osd max scrubs: 2
         osd op queue: debug_random
         osd op queue cut off: debug_random
         osd debug verify missing on start: true
