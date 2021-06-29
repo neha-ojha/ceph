@@ -37,3 +37,5 @@ ceph health detail | grep RECENT_CRASH || exit 1
 ceph crash archive-all
 sleep 30
 ceph health detail | grep -c RECENT_CRASH | grep 0     # should be gone!
+ceph crash ls
+ceph crash ls-new
